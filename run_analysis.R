@@ -103,31 +103,11 @@ Data2<-aggregate(. ~subject + activity, Data, mean)
 Data2<-Data2[order(Data2$subject,Data2$activity),]
 write.table(Data2, file = "tidydata.txt",row.name=FALSE)
 
-install.packages("knitr") 
 library(knitr)
-
-knit2html("./codebook.Rmd")
-
-
-summary(Data2)
-
-library(markdown)
+library(rmarkdown)
 
 sessionInfo()
 
-install.packages(c('rzmq','repr','IRkernel','IRdisplay'),
-                 repos = c('http://irkernel.github.io/', getOption('repos')))
 
-
-
-getOption("defaultPackages")
-
-install.packages('IRdisplay',
-                 repos = c('http://irkernel.github.io/', getOption('repos')))
-
-
-install.packages("rtools")
-
-install.packages("rmarkdown")
-library(rmarkdown)
-
+knit2html(spin("./codebook.Rmd", knit = FALSE), force_v1 = TRUE)
+          
